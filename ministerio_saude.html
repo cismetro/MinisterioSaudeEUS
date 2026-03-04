@@ -31,9 +31,29 @@
             border: 1px solid rgba(20, 184, 166, 0.1);
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.15);
+        /* Accordion Styles */
+        .accordion-item {
+            @apply mb-4 overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 transition-all duration-300;
+        }
+
+        .accordion-header {
+            @apply flex items-center justify-between p-6 cursor-pointer bg-white dark:bg-gray-900 hover:bg-teal-50 dark:hover:bg-teal-950/30 transition-colors;
+        }
+
+        .accordion-content {
+            @apply hidden p-6 bg-gray-50/50 dark:bg-black/20 border-t border-gray-100 dark:border-gray-800;
+        }
+
+        .accordion-item.active {
+            @apply ring-2 ring-primary-500 shadow-xl;
+        }
+
+        .accordion-item.active .accordion-content {
+            @apply block;
+        }
+
+        .accordion-item.active .chevron {
+            @apply rotate-180;
         }
 
         .seidigi-highlight {
@@ -54,77 +74,12 @@
             }
         }
 
-        /* Organogram Styles */
-        .chart-container {
-            overflow-x: auto;
-            padding: 2rem 0;
-            display: flex;
-            justify-content: center;
+        .dept-card {
+            @apply bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow;
         }
 
-        .node {
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            min-width: 120px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .node-main {
-            background: #004b93;
-            color: white;
-            scale: 1.1;
-        }
-
-        .node-sec {
-            background: #14b8a6;
-            color: white;
-        }
-
-        .node-dept {
-            background: #f0fdfa;
-            color: #134e4a;
-            border: 1px solid #99f6e4;
-        }
-
-        .dark .node-dept {
-            background: #1a2e2e;
-            color: #ccfbf1;
-            border-color: #115e59;
-        }
-
-        .line-v {
-            width: 2px;
-            background: #94a3b8;
-            margin: 0 auto;
-            height: 20px;
-        }
-
-        .line-h {
-            height: 2px;
-            background: #94a3b8;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #14b8a6;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0d9488;
+        .edu-link {
+            @apply text-xs font-semibold px-3 py-1 rounded-full transition-all duration-200 mt-4 inline-flex items-center;
         }
     </style>
     <script>
@@ -143,199 +98,265 @@
                 }
             }
         }
+
+        function toggleAccordion(id) {
+            const items = document.querySelectorAll('.accordion-item');
+            items.forEach(item => {
+                if (item.id === id) {
+                    item.classList.toggle('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
     </script>
 </head>
 
 <body class="bg-gray-50 dark:bg-black transition-colors duration-300">
     <!-- Header -->
-    <header class="premium-gradient text-white py-12 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
-            </svg>
-        </div>
+    <header class="premium-gradient text-white py-14 relative overflow-hidden">
         <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">MINISTÉRIO DA SAÚDE</h1>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 uppercase">Ministério da Saúde</h1>
             <p class="text-xl md:text-2xl font-light text-teal-100 max-w-3xl mx-auto italic">
-                Educação Continuada e Estrutura Organizacional
+                Estrutura Organizacional Organizada (Accordion)
             </p>
         </div>
     </header>
 
     <main class="container mx-auto px-4 -mt-8 relative z-20 pb-20">
 
-        <!-- Interactive Chart Teaser -->
-        <div class="glass-card rounded-2xl p-8 mb-12 shadow-2xl">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 border-l-4 border-primary-500 pl-4">
-                Estrutura Organizacional Básica
-            </h2>
+        <!-- Organograma em Figura -->
+        <div class="glass-card rounded-3xl p-4 md:p-6 mb-12 shadow-2xl">
+            <div class="rounded-2xl overflow-hidden bg-white">
+                <img src="resumo.jpg" alt="Organograma"
+                    class="w-full h-auto max-h-[600px] object-contain cursor-zoom-in">
+            </div>
+            <p class="text-center text-xs text-gray-400 mt-4 uppercase tracking-widest font-bold">Mapa Estrutural do
+                Ministério</p>
+        </div>
 
-            <div class="chart-container">
-                <div class="flex flex-col items-center">
-                    <div class="node node-main shadow-lg px-8 py-4 mb-4">MINISTÉRIO DA SAÚDE</div>
-                    <div class="line-v"></div>
-                    <div class="flex gap-4">
-                        <div class="flex flex-col items-center">
-                            <div class="node node-sec">Secretaria-Executiva (SE)</div>
-                            <div class="line-v"></div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div class="node node-dept">SAA</div>
-                                <div class="node node-dept">SPO</div>
-                                <div class="node node-dept">FNS</div>
-                                <div class="node node-dept">DECOOP</div>
-                            </div>
+        <!-- ACCORDIONS -->
+        <div id="accordion-container" class="max-w-5xl mx-auto">
+
+            <!-- Item 1: Órgãos de Assistência Direta -->
+            <div class="accordion-item" id="assistencia">
+                <div class="accordion-header" onclick="toggleAccordion('assistencia')">
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="bg-green-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-user-tie"></i>
+                        </span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">Órgãos de Assistência Direta ao Ministro</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-tighter">Gabinete, DENASUS, OUVSUS,
+                                Corregedoria, CONJUR</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-gray-400 chevron transition-transform duration-300"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="dept-card">
+                            <h4 class="font-bold text-green-600 mb-2">🟢 Gabinete do Ministro</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Responsável por assessorar diretamente o
+                                Ministro da Saúde. Coordena agendas, decisões estratégicas, articulação política e
+                                comunicação institucional.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h4 class="font-bold text-green-600 mb-2">🟢 DENASUS</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Departamento Nacional de Auditoria do
+                                SUS. Realiza auditorias para fiscalizar o uso correto dos recursos públicos e garantir
+                                qualidade nos serviços.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h4 class="font-bold text-green-600 mb-2">🟢 OUVSUS</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Ouvidoria-Geral do SUS. Canal de
+                                comunicação entre o cidadão e o SUS. Recebe reclamações, denúncias, sugestões e elogios.
+                            </p>
+                        </div>
+                        <div class="dept-card">
+                            <h4 class="font-bold text-green-600 mb-2">🟢 Corregedoria</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Apura irregularidades administrativas
+                                cometidas por servidores e aplica medidas disciplinares quando necessário.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h4 class="font-bold text-green-600 mb-2">🟢 CONJUR</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Consultoria Jurídica. Presta
+                                assessoramento jurídico ao Ministério, analisando leis, contratos e atos
+                                administrativos.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <p class="text-center text-sm text-gray-500 mt-4">Nesta representação gráfica, focamos nos órgãos de
-                assistência direta e imediata.</p>
-        </div>
 
-        <!-- Seção de Órgãos -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <!-- Gabinete -->
-            <div class="glass-card rounded-xl p-6">
-                <div class="flex items-center mb-4">
-                    <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-lg mr-4">
-                        <i class="fas fa-briefcase text-primary-600 dark:text-primary-300"></i>
+            <!-- Item 2: Secretaria-Executiva -->
+            <div class="accordion-item" id="executiva">
+                <div class="accordion-header" onclick="toggleAccordion('executiva')">
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="bg-primary-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-cogs"></i>
+                        </span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">Secretaria-Executiva (SE)</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-tighter">Coordenação administrativa,
+                                orçamentária e estratégica</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold dark:text-white">Gabinete</h3>
+                    <i class="fas fa-chevron-down text-gray-400 chevron transition-transform duration-300"></i>
                 </div>
-                <p class="text-gray-600 dark:text-gray-400 text-sm">Apoio técnico e administrativo ao Ministro de
-                    Estado.</p>
+                <div class="accordion-content">
+                    <p
+                        class="mb-6 text-sm italic text-primary-700 dark:text-primary-300 border-l-4 border-primary-500 pl-4 bg-primary-50 dark:bg-primary-950/20 py-2">
+                        Coordena a gestão administrativa, orçamentária e estratégica do Ministério.
+                    </p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">SAA</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Subsecretaria de Assuntos
+                                Administrativos. Gerencia recursos humanos, contratos, patrimônio e logística.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">SPO</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Subsecretaria de Planejamento e
+                                Orçamento. Coordena o planejamento estratégico e a execução orçamentária.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">FNS</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Fundo Nacional de Saúde. Administra e
+                                repassa recursos financeiros para estados e municípios.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">DECOOP</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Departamento de Cooperação Técnica.
+                                Promove parcerias nacionais e internacionais.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">DLOG</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Departamento de Logística. Responsável
+                                pela aquisição e distribuição de insumos (vacinas e remédios).</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">DJUD</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Departamento Jurídico. Acompanha ações
+                                judiciais relacionadas à saúde pública.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">DGIP</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Departamento de Gestão Interfederativa.
+                                Articula a gestão do SUS entre União, estados e municípios.</p>
+                        </div>
+                        <div class="dept-card">
+                            <h5 class="font-black text-primary-600 mb-1">DESID</h5>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Departamento de Economia da Saúde.
+                                Analisa custos e sustentabilidade financeira do sistema.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- SAPS -->
-            <div class="glass-card rounded-xl p-6">
-                <div class="flex items-center mb-4">
-                    <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg mr-4 text-blue-600">
-                        <i class="fas fa-hospital-user"></i>
+            <!-- Item 3: Secretarias Finalísticas -->
+            <div class="accordion-item active" id="finalisticas">
+                <div class="accordion-header" onclick="toggleAccordion('finalisticas')">
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-stethoscope"></i>
+                        </span>
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white">Secretarias Finalísticas</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-tighter">Atenção Primária, Especializada,
+                                Vigilância, TI, Saúde Indígena</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold dark:text-white">SAPS</h3>
+                    <i class="fas fa-chevron-down text-gray-400 chevron transition-transform duration-300"></i>
                 </div>
-                <p class="text-gray-600 dark:text-gray-400 text-sm">Secretaria de Atenção Primária à Saúde. Foco no
-                    cuidado inicial e prevenção.</p>
-            </div>
+                <div class="accordion-content">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="dept-card border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-600 mb-2">🔵 SAPS</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Secretaria de Atenção Primária à Saúde.
+                                Coordena políticas como Estratégia Saúde da Família e vacinação.</p>
+                            <a href="https://www.gov.br/saude/pt-br/composicao/saps" target="_blank"
+                                class="edu-link bg-blue-100 text-blue-700 hover:bg-blue-200">PORTAL SAPS</a>
+                        </div>
+                        <div class="dept-card border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-600 mb-2">🔵 SAES</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Secretaria de Atenção Especializada à
+                                Saúde. Média e alta complexidade (hospitais e cirurgias).</p>
+                        </div>
+                        <div class="dept-card border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-600 mb-2">🔵 SVSA</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Secretaria de Vigilância em Saúde e
+                                Ambiente. Controle de doenças (dengue, COVID-19) e epidemiologia.</p>
+                        </div>
+                        <div class="dept-card border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-600 mb-2">🔵 SESAI</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Secretaria de Saúde Indígena. Políticas
+                                específicas respeitando características culturais.</p>
+                        </div>
+                        <div class="dept-card border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-600 mb-2">🔵 SCTIE</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Secretaria de Ciência, Tecnologia e
+                                Inovação. Pesquisa e incorporação de tecnologias no SUS.</p>
+                        </div>
+                        <div class="dept-card border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-600 mb-2">🔵 SGTES</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Secretaria de Gestão do Trabalho e da
+                                Educação na Saúde. Formação e qualificação de profissionais.</p>
+                            <a href="https://unasus.gov.br/" target="_blank"
+                                class="edu-link bg-blue-100 text-blue-700 hover:bg-blue-200">UNA-SUS</a>
+                        </div>
 
-            <!-- SAES -->
-            <div class="glass-card rounded-xl p-6">
-                <div class="flex items-center mb-4">
-                    <div class="bg-red-100 dark:bg-red-900 p-3 rounded-lg mr-4 text-red-600">
-                        <i class="fas fa-ambulance"></i>
-                    </div>
-                    <h3 class="text-xl font-bold dark:text-white">SAES</h3>
-                </div>
-                <p class="text-gray-600 dark:text-gray-400 text-sm">Secretaria de Atenção Especializada à Saúde. Redes
-                    de urgência e emergência.</p>
-            </div>
-
-            <!-- SEIDIGI - DESTAQUE -->
-            <div class="glass-card seidigi-highlight rounded-xl p-8 lg:col-span-2 transform scale-105">
-                <div class="flex items-center mb-6">
-                    <div class="bg-teal-400 p-4 rounded-full mr-6 animate-bounce">
-                        <i class="fas fa-microchip text-2xl text-teal-950"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-3xl font-extrabold text-white">SEIDIGI</h3>
-                        <p class="text-teal-200 font-medium">Secretaria de Informação e Saúde Digital</p>
+                        <!-- SEIDIGI SPECIAL -->
+                        <div class="seidigi-highlight md:col-span-2 rounded-2xl p-6">
+                            <div class="flex items-center gap-4 mb-3 text-white">
+                                <i class="fas fa-laptop-medical text-3xl"></i>
+                                <h4 class="text-2xl font-black">SEIDIGI</h4>
+                            </div>
+                            <p class="text-sm text-teal-50 mb-4 opacity-90">
+                                Secretaria de Informação e Saúde Digital. Transformação digital do SUS, prontuários
+                                eletrônicos e DATASUS.
+                            </p>
+                            <div class="flex gap-2">
+                                <a href="https://www.gov.br/saude/pt-br/composicao/seidigi" target="_blank"
+                                    class="text-[10px] bg-white text-teal-900 px-3 py-1 rounded font-black hover:bg-teal-50">PORTAL
+                                    RNDS</a>
+                                <a href="https://datasus.saude.gov.br/" target="_blank"
+                                    class="text-[10px] bg-teal-600 text-white px-3 py-1 rounded font-black hover:bg-teal-700 border border-teal-400">DATASUS</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p class="text-teal-50 ml-2 mb-6 text-lg leading-relaxed">
-                    Setor fundamental para a modernização do SUS. Responsável pela transformação digital,
-                    integração de dados e o futuro tecnológico da saúde pública brasileira.
-                </p>
-                <div class="grid grid-cols-2 gap-4 text-white text-sm">
-                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-teal-300"></i> DESD (Saúde
-                        Digital)</div>
-                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-teal-300"></i> DATASUS
-                        (Informática)</div>
-                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-teal-300"></i> DEMAS
-                        (Monitoramento)</div>
-                </div>
-            </div>
-
-            <!-- Outras -->
-            <div class="glass-card rounded-xl p-6">
-                <h3 class="font-bold mb-3 dark:text-white">SVSA / SESAI / SCTIE</h3>
-                <ul class="text-sm space-y-2 text-gray-500 dark:text-gray-400">
-                    <li>• Vigilância em Saúde e Ambiente</li>
-                    <li>• Saúde Indígena (DSEI)</li>
-                    <li>• Ciência, Tecnologia e Inovação</li>
-                </ul>
             </div>
         </div>
 
         <!-- ESUS PEC SEÇÃO -->
-        <section id="esus-pec"
-            class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-primary-200 dark:border-primary-800">
-            <div class="grid lg:grid-cols-2">
-                <div class="p-12 premium-gradient text-white">
-                    <h2 class="text-3xl font-bold mb-6">ESUS PEC - Educação Continuada</h2>
-                    <h3 class="text-xl mb-8 border-b border-teal-400 pb-2">Subseção ESUS PEC - Ministério da Saúde</h3>
-
-                    <p class="text-teal-50 mb-8 leading-relaxed">
-                        Capacitação integral para o uso do Prontuário Eletrônico do Cidadão (PEC) e ferramentas de Saúde
-                        Digital.
-                        A tecnologia do <strong>SUS Digital</strong> integra dados clínicos para qualificar a
-                        assistência em todo o território nacional.
-                    </p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start bg-white/10 p-4 rounded-xl hover:bg-white/20 transition-all">
-                            <i class="fas fa-video mt-1 mr-4 text-teal-300 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold">Teleatendimento & Videochamada</h4>
-                                <p class="text-sm text-teal-100 italic">Tecnologias: WebRTC para comunicação segura e
-                                    síncrona.</p>
-                                <a href="https://educaesusaps.medicina.ufmg.br/" target="_blank"
-                                    class="mt-2 inline-block text-xs bg-teal-400 text-teal-950 px-3 py-1 rounded-full font-bold hover:bg-white transition-colors">
-                                    CURSO EDUCA E-SUS APS <i class="fas fa-external-link-alt ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="flex items-start bg-white/10 p-4 rounded-xl hover:bg-white/20 transition-all">
-                            <i class="fas fa-microscope mt-1 mr-4 text-teal-300 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold">Teleconsulta & Telediagnóstico</h4>
-                                <p class="text-sm text-teal-100 italic">Padrões: HL7 e DICOM para troca de informações
-                                    clínicas.</p>
-                                <a href="https://moodle.telessauders.ufrgs.br" target="_blank"
-                                    class="mt-2 inline-block text-xs bg-teal-400 text-teal-950 px-3 py-1 rounded-full font-bold hover:bg-white transition-colors">
-                                    TELESSAÚDE RS (UFRGS) <i class="fas fa-external-link-alt ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="flex items-start bg-white/10 p-4 rounded-xl hover:bg-white/20 transition-all">
-                            <i class="fas fa-book-reader mt-1 mr-4 text-teal-300 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold">Telessaúde Brasil Redes</h4>
-                                <p class="text-sm text-teal-100">Segunda opinião formativa e teleconsultoria.</p>
-                                <a href="https://www.gov.br/saude/pt-br/composicao/sap/telessaude" target="_blank"
-                                    class="mt-2 inline-block text-xs bg-teal-400 text-teal-950 px-3 py-1 rounded-full font-bold hover:bg-white transition-colors">
-                                    PORTAL OFICIAL GOV <i class="fas fa-external-link-alt ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
+        <section
+            class="mt-16 bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border-2 border-primary-100 dark:border-primary-900">
+            <div class="grid md:grid-cols-2">
+                <div class="p-10 premium-gradient text-white">
+                    <h2 class="text-3xl font-black mb-4">ESUS PEC & Telemedicina</h2>
+                    <p class="text-sm text-teal-50 mb-8 opacity-80">Capacitação técnica para o uso do prontuário digital
+                        e telessaúde.</p>
+                    <div class="space-y-4">
+                        <a href="https://educaesusaps.medicina.ufmg.br/" target="_blank"
+                            class="block bg-white/10 p-4 rounded-xl hover:bg-white/20 transition-all border border-white/10 text-xs font-bold">
+                            <i class="fas fa-graduation-cap text-teal-300 mr-2"></i> EDUCA E-SUS (UFMG)
+                        </a>
+                        <a href="https://moodle.telessauders.ufrgs.br" target="_blank"
+                            class="block bg-white/10 p-4 rounded-xl hover:bg-white/20 transition-all border border-white/10 text-xs font-bold">
+                            <i class="fas fa-stethoscope text-teal-300 mr-2"></i> TELESSAÚDE RS (UFRGS)
+                        </a>
                     </div>
                 </div>
-                <div class="p-12 flex flex-col justify-center items-center text-center bg-gray-50 dark:bg-gray-800">
-                    <div class="mb-8 p-6 bg-white dark:bg-gray-700 rounded-2xl shadow-inner">
-                        <img src="https://aps.saude.gov.br/assets/img/esus/logo-esus-aps.png" alt="ESUS Logo"
-                            class="w-56 grayscale hover:grayscale-0 transition-all duration-500">
-                    </div>
-                    <div class="max-w-sm">
-                        <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Como funciona a Tecnologia?
-                        </h4>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-8">
-                            A plataforma utiliza o <strong>Padrão de Informações de Saúde (HL7)</strong> para garantir
-                            que diferentes sistemas "falem a mesma língua". Os dados são criptografados de ponta a ponta
-                            para garantir a privacidade do paciente conforme a LGPD.
-                        </p>
+                <div class="p-10 flex flex-col justify-center items-center text-center bg-gray-50 dark:bg-gray-800">
+                    <div class="mb-6 p-10 bg-white dark:bg-gray-700 rounded-full shadow-xl">
+                        <i class="fas fa-user-md text-6xl text-primary-600"></i>
                     </div>
                     <a href="https://aps.saude.gov.br/ape/esus" target="_blank"
-                        class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-5 rounded-full font-bold text-lg shadow-lg hover:shadow-primary-500/50 transition-all transform hover:scale-105 active:scale-95">
-                        CENTRAL DE TREINAMENTO PEC <i class="fas fa-graduation-cap ml-2"></i>
+                        class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-full font-black text-lg shadow-lg transition-transform hover:scale-105 active:scale-95">
+                        ACESSAR PEC APS <i class="fas fa-rocket ml-2"></i>
                     </a>
                 </div>
             </div>
@@ -343,22 +364,12 @@
 
     </main>
 
-    <footer class="bg-gray-900 text-teal-500 py-12 text-center border-t border-teal-900">
-        <div class="mb-6 flex justify-center space-x-6">
-            <i class="fab fa-facebook-f hover:text-white cursor-pointer"></i>
-            <i class="fab fa-instagram hover:text-white cursor-pointer"></i>
-            <i class="fab fa-linkedin-in hover:text-white cursor-pointer"></i>
-        </div>
-        <p class="text-sm opacity-60">© 2026 Ministério da Saúde - Educação Continuada</p>
-        <p class="text-xs mt-2 italic">Design Premium by Antigravity AI</p>
+    <footer class="bg-gray-950 py-12 text-center text-gray-500 border-t border-gray-900">
+        <p class="text-[10px] uppercase font-bold tracking-widest text-teal-600 mb-2">Ministério da Saúde - Estrutura
+            Digital</p>
+        <p class="text-[10px]">© 2026 Intranet Saúde | Educação Continuada</p>
     </footer>
 
-    <script>
-        // Check local storage for dark mode
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
 </body>
 
 </html>
