@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS - Educação Continuada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .premium-gradient {
+            background: linear-gradient(135deg, #0d9488 0%, #134e4a 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(20, 184, 166, 0.1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(13, 148, 136, 0.15);
+        }
+
+        .seidigi-highlight {
+            position: relative;
+            background: linear-gradient(135deg, #1e3a3a 0%, #134e4a 100%);
+            border: 2px solid #5eead4 !important;
+            box-shadow: 0 0 20px rgba(94, 234, 212, 0.3);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 15px rgba(94, 234, 212, 0.2);
+            }
+
+            to {
+                box-shadow: 0 0 30px rgba(94, 234, 212, 0.5);
+            }
+        }
+
+        /* Organogram Styles */
+        .chart-container {
+            overflow-x: auto;
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .node {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 120px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .node-main {
+            background: #004b93;
+            color: white;
+            scale: 1.1;
+        }
+
+        .node-sec {
+            background: #14b8a6;
+            color: white;
+        }
+
+        .node-dept {
+            background: #f0fdfa;
+            color: #134e4a;
+            border: 1px solid #99f6e4;
+        }
+
+        .dark .node-dept {
+            background: #1a2e2e;
+            color: #ccfbf1;
+            border-color: #115e59;
+        }
+
+        .line-v {
+            width: 2px;
+            background: #94a3b8;
+            margin: 0 auto;
+            height: 20px;
+        }
+
+        .line-h {
+            height: 2px;
+            background: #94a3b8;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #14b8a6;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0d9488;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4',
+                            300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6',
+                            600: '#0d9488', 700: '#0f766e', 800: '#115e59',
+                            900: '#134e4a', 950: '#042f2e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 dark:bg-black transition-colors duration-300">
+    <!-- Header -->
+    <header class="premium-gradient text-white py-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">MINISTÉRIO DA SAÚDE</h1>
+            <p class="text-xl md:text-2xl font-light text-teal-100 max-w-3xl mx-auto italic">
+                Educação Continuada e Estrutura Organizacional
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 -mt-8 relative z-20 pb-20">
+
+        <!-- Interactive Chart Teaser -->
+        <div class="glass-card rounded-2xl p-8 mb-12 shadow-2xl">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 border-l-4 border-primary-500 pl-4">
+                Estrutura Organizacional Básica
+            </h2>
+
+            <div class="chart-container">
+                <div class="flex flex-col items-center">
+                    <div class="node node-main shadow-lg px-8 py-4 mb-4">MINISTÉRIO DA SAÚDE</div>
+                    <div class="line-v"></div>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="node node-sec">Secretaria-Executiva (SE)</div>
+                            <div class="line-v"></div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="node node-dept">SAA</div>
+                                <div class="node node-dept">SPO</div>
+                                <div class="node node-dept">FNS</div>
+                                <div class="node node-dept">DECOOP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-4">Nesta representação gráfica, focamos nos órgãos de
+                assistência direta e imediata.</p>
+        </div>
+
+        <!-- Seção de Órgãos -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <!-- Gabinete -->
+            <div class="glass-card rounded-xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-lg mr-4">
+                        <i class="fas fa-briefcase text-primary-600 dark:text-primary-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold dark:text-white">Gabinete</h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Apoio técnico e administrativo ao Ministro de
+                    Estado.</p>
+            </div>
+
+            <!-- SAPS -->
+            <div class="glass-card rounded-xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg mr-4 text-blue-600">
+                        <i class="fas fa-hospital-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold dark:text-white">SAPS</h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Secretaria de Atenção Primária à Saúde. Foco no
+                    cuidado inicial e prevenção.</p>
+            </div>
+
+            <!-- SAES -->
+            <div class="glass-card rounded-xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-red-100 dark:bg-red-900 p-3 rounded-lg mr-4 text-red-600">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3 class="text-xl font-bold dark:text-white">SAES</h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Secretaria de Atenção Especializada à Saúde. Redes
+                    de urgência e emergência.</p>
+            </div>
+
+            <!-- SEIDIGI - DESTAQUE -->
+            <div class="glass-card seidigi-highlight rounded-xl p-8 lg:col-span-2 transform scale-105">
+                <div class="flex items-center mb-6">
+                    <div class="bg-teal-400 p-4 rounded-full mr-6 animate-bounce">
+                        <i class="fas fa-microchip text-2xl text-teal-950"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-extrabold text-white">SEIDIGI</h3>
+                        <p class="text-teal-200 font-medium">Secretaria de Informação e Saúde Digital</p>
+                    </div>
+                </div>
+                <p class="text-teal-50 ml-2 mb-6 text-lg leading-relaxed">
+                    Setor fundamental para a modernização do SUS. Responsável pela transformação digital,
+                    integração de dados e o futuro tecnológico da saúde pública brasileira.
+                </p>
+                <div class="grid grid-cols-2 gap-4 text-white text-sm">
+                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-teal-300"></i> DESD (Saúde
+                        Digital)</div>
+                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-teal-300"></i> DATASUS
+                        (Informática)</div>
+                    <div class="flex items-center"><i class="fas fa-check-circle mr-2 text-teal-300"></i> DEMAS
+                        (Monitoramento)</div>
+                </div>
+            </div>
+
+            <!-- Outras -->
+            <div class="glass-card rounded-xl p-6">
+                <h3 class="font-bold mb-3 dark:text-white">SVSA / SESAI / SCTIE</h3>
+                <ul class="text-sm space-y-2 text-gray-500 dark:text-gray-400">
+                    <li>• Vigilância em Saúde e Ambiente</li>
+                    <li>• Saúde Indígena (DSEI)</li>
+                    <li>• Ciência, Tecnologia e Inovação</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ESUS PEC SEÇÃO -->
+        <section id="esus-pec"
+            class="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-primary-200 dark:border-primary-800">
+            <div class="grid lg:grid-cols-2">
+                <div class="p-12 premium-gradient text-white">
+                    <h2 class="text-3xl font-bold mb-6">ESUS PEC - Educação Continuada</h2>
+                    <h3 class="text-xl mb-8 border-b border-teal-400 pb-2">Subseção ESUS PEC - Ministério da Saúde</h3>
+
+                    <p class="text-teal-50 mb-8 leading-relaxed">
+                        Capacitação integral para o uso do Prontuário Eletrônico do Cidadão.
+                        Foco em Telemetria, Registro clínico e gestão de dados na ponta.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-video mt-1 mr-4 text-teal-300"></i>
+                            <div>
+                                <h4 class="font-bold">Teleatendimento</h4>
+                                <p class="text-sm text-teal-100">Videochamadas integradas e compartilhamento de cuidado.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-chart-line mt-1 mr-4 text-teal-300"></i>
+                            <div>
+                                <h4 class="font-bold">Telemedicina</h4>
+                                <p class="text-sm text-teal-100">Consultoria diagnóstica em tempo real para o interior.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-12 flex flex-col justify-center items-center text-center bg-gray-50 dark:bg-gray-800">
+                    <img src="https://aps.saude.gov.br/assets/img/esus/logo-esus-aps.png" alt="ESUS Logo"
+                        class="w-48 mb-8 grayscale hover:grayscale-0 transition-all duration-500">
+                    <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-sm">
+                        Acesse agora o portal oficial de implementação e treinamento do e-SUS APS.
+                    </p>
+                    <a href="https://aps.saude.gov.br/ape/esus" target="_blank"
+                        class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-5 rounded-full font-bold text-lg shadow-lg hover:shadow-primary-500/50 transition-all transform hover:scale-105 active:scale-95">
+                        ACESSAR PORTAL APS <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-teal-500 py-12 text-center border-t border-teal-900">
+        <div class="mb-6 flex justify-center space-x-6">
+            <i class="fab fa-facebook-f hover:text-white cursor-pointer"></i>
+            <i class="fab fa-instagram hover:text-white cursor-pointer"></i>
+            <i class="fab fa-linkedin-in hover:text-white cursor-pointer"></i>
+        </div>
+        <p class="text-sm opacity-60">© 2026 Ministério da Saúde - Educação Continuada</p>
+        <p class="text-xs mt-2 italic">Design Premium by Antigravity AI</p>
+    </footer>
+
+    <script>
+        // Check local storage for dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+
+</html>
